@@ -3,10 +3,10 @@ import {
   DiscordInteractionResponseTypes,
   sendInteractionResponse,
   snowflakeToBigint,
-} from '../../deps.ts'
-import { createCommand } from '../utils/helpers.ts'
-import { ClientDB } from '../database/ClientDb.ts'
-import { log } from '../utils/logger.ts'
+} from "../../deps.ts";
+import { createCommand } from "../utils/helpers.ts";
+import { ClientDB } from "../database/ClientDb.ts";
+import { log } from "../utils/logger.ts";
 
 createCommand({
   name: `clip`,
@@ -19,21 +19,21 @@ createCommand({
     options: [
       {
         required: true,
-        name: 'content',
-        description: 'content to add to your clipboard',
+        name: "content",
+        description: "content to add to your clipboard",
         type: DiscordApplicationCommandOptionTypes.String,
       },
     ],
     execute: async (data, member) => {
-      const arg = data.data?.options?.[0]
+      const arg = data.data?.options?.[0];
 
-      const db = new ClientDB()
+      const db = new ClientDB();
       if (data && member) {
         db.clipContent({
           content: arg,
           tag: member?.tag,
           userid: member?.id!,
-        })
+        });
       }
 
       return await sendInteractionResponse(
@@ -51,8 +51,8 @@ createCommand({
               },
             ],
           },
-        }
-      ).catch(log.error)
+        },
+      ).catch(log.error);
     },
   },
-})
+});

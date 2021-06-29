@@ -3,10 +3,10 @@ import {
   DiscordInteractionResponseTypes,
   sendInteractionResponse,
   snowflakeToBigint,
-} from '../../deps.ts'
-import { createCommand } from '../utils/helpers.ts'
-import { ClientDB } from '../database/ClientDb.ts'
-import { log } from '../utils/logger.ts'
+} from "../../deps.ts";
+import { createCommand } from "../utils/helpers.ts";
+import { ClientDB } from "../database/ClientDb.ts";
+import { log } from "../utils/logger.ts";
 
 createCommand({
   name: `getclips`,
@@ -17,18 +17,18 @@ createCommand({
     global: false,
     advanced: true,
     execute: async (data, member) => {
-      const db = new ClientDB()
-      let clips
+      const db = new ClientDB();
+      let clips;
       if (member) {
-        clips = db.getClips(member.tag)
-        log.info(clips)
+        clips = db.getClips(member.tag);
+        log.info(clips);
       }
 
       if (clips) {
-        let content: string | undefined
+        let content: string | undefined;
         clips?.forEach((clip) => {
-          content += clip + '\n'
-        })
+          content += clip + "\n";
+        });
         return await sendInteractionResponse(
           snowflakeToBigint(data.id),
           data.token,
@@ -44,8 +44,8 @@ createCommand({
                 },
               ],
             },
-          }
-        ).catch(log.error)
+          },
+        ).catch(log.error);
       }
 
       return await sendInteractionResponse(
@@ -59,12 +59,12 @@ createCommand({
                 author: {
                   name: member?.tag,
                 },
-                description: 'nothing in there',
+                description: "nothing in there",
               },
             ],
           },
-        }
-      ).catch(log.error)
+        },
+      ).catch(log.error);
     },
   },
-})
+});
