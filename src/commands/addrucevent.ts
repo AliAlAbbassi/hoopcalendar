@@ -34,24 +34,6 @@ createCommand({
         name: 'hour:',
         description: 'Time of the event in 24-hour military time',
         type: DiscordApplicationCommandOptionTypes.String,
-        choices: [
-          {
-            name: '00',
-            value: '00',
-          },
-          {
-            name: '01',
-            value: '01',
-          },
-          {
-            name: '02',
-            value: '02',
-          },
-          {
-            name: '03',
-            value: '03',
-          },
-        ],
       },
       {
         required: true,
@@ -99,6 +81,7 @@ createCommand({
       if (title && description && day) {
         db.createRuccEvent({ title, description, day })
       }
+
       return await sendInteractionResponse(
         snowflakeToBigint(data.id),
         data.token,
