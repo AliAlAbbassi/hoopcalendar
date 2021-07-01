@@ -3,10 +3,10 @@ import {
   DiscordInteractionResponseTypes,
   sendInteractionResponse,
   snowflakeToBigint,
-} from '../../deps.ts'
-import { createCommand } from '../utils/helpers.ts'
-import { ClientDB } from '../database/ClientDb.ts'
-import { log } from '../utils/logger.ts'
+} from "../../deps.ts";
+import { createCommand } from "../utils/helpers.ts";
+import { ClientDB } from "../database/ClientDb.ts";
+import { log } from "../utils/logger.ts";
 
 createCommand({
   name: `addruccevent`,
@@ -19,67 +19,67 @@ createCommand({
     options: [
       {
         required: true,
-        name: 'title',
-        description: 'Title of the event',
+        name: "title",
+        description: "Title of the event",
         type: DiscordApplicationCommandOptionTypes.String,
       },
       {
         required: true,
-        name: 'description',
-        description: 'Description of the event',
+        name: "description",
+        description: "Description of the event",
         type: DiscordApplicationCommandOptionTypes.String,
       },
       {
         required: true,
-        name: 'hour:',
-        description: 'Time of the event in 24-hour military time',
+        name: "hour:",
+        description: "Time of the event in 24-hour military time",
         type: DiscordApplicationCommandOptionTypes.String,
       },
       {
         required: true,
-        name: 'day',
-        description: 'Day of the event',
+        name: "day",
+        description: "Day of the event",
         type: DiscordApplicationCommandOptionTypes.String,
         choices: [
           {
-            name: 'Monday',
-            value: 'Monday',
+            name: "Monday",
+            value: "Monday",
           },
           {
-            name: 'Tuesday',
-            value: 'Tuesday',
+            name: "Tuesday",
+            value: "Tuesday",
           },
           {
-            name: 'Wednesday',
-            value: 'Wednesday',
+            name: "Wednesday",
+            value: "Wednesday",
           },
           {
-            name: 'Thursday',
-            value: 'Thursday',
+            name: "Thursday",
+            value: "Thursday",
           },
           {
-            name: 'Friday',
-            value: 'Friday',
+            name: "Friday",
+            value: "Friday",
           },
           {
-            name: 'Saturday',
-            value: 'Saturday',
+            name: "Saturday",
+            value: "Saturday",
           },
           {
-            name: 'Sunday',
-            value: 'Sunday',
+            name: "Sunday",
+            value: "Sunday",
           },
         ],
       },
     ],
     execute: async (data) => {
-      const title = data.data?.options?.[0]
-      const description = data.data?.options?.[1]
-      const day = data.data?.options?.[2]
+      const title = data.data?.options?.[0];
+      const description = data.data?.options?.[1];
+      const day = data.data?.options?.[2];
 
-      const db = new ClientDB()
+      const db = new ClientDB();
       if (title && description && day) {
-        db.createRuccEvent({ title, description, day })
+        db.createRuccEvent({ title, description, day });
       }
 
       return await sendInteractionResponse(
@@ -94,8 +94,8 @@ createCommand({
               },
             ],
           },
-        }
-      ).catch(log.error)
+        },
+      ).catch(log.error);
     },
   },
-})
+});
